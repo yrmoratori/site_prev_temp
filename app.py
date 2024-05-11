@@ -11,7 +11,7 @@ def get_weather(city):
 
     if data["cod"] != "404":
         main_data = data["main"]
-        temperature_celsius = main_data["temp"] - 273.15
+        temperature_celsius = round(main_data["temp"] - 273.15)
         humidity = main_data["humidity"]
         weather_data = data["weather"]
         weather_description = weather_data[0]["description"]
