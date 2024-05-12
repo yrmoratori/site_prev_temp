@@ -99,6 +99,14 @@
 <body>
     <h1>Previsão do Tempo</h1>
     <form action="/" method="post">
+        <label for="tipos_previsao">Escolha o tipo de previsão:</label>
+        <select name="tipos_previsao" id="tipos_previsao">
+            <option value=0>Temperatura atual!</option>
+            <option value=1>Próximos 4 dias!</option>
+            <option value=2>Próximos 16 dias!</option>
+            <option value=3>Próximos 30 dais!</option>
+        </select>
+        <br></br>
         <label for="city">Digite o nome da sua cidade:</label>
         <input type="text" name="city" id="city">
         <br><br>
