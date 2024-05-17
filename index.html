@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda ES</title>
+    <!-- Códigos do autocomplete -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+    <script>
+    $(function() {
+        var cidadesES = [
+            "Afonso Cláudio",
+            "Água Doce do Norte",
+            "Águia Branca",
+            "Alegre",
+            "Alfredo Chaves",
+            "Alto Rio Novo",
+            "Anchieta",
+            "Apiacá",
+            "Aracruz",
+            "Atilio Vivacqua",
+            "Baixo Guandu",
+            "Barra de São Francisco",
+            "Boa Esperança",
+            "Bom Jesus do Norte",
+            "Brejetuba",
+            "Cachoeiro de Itapemirim",
+            "Cariacica",
+            "Castelo",
+            "Colatina",
+            "Conceição da Barra",
+            "Conceição do Castelo",
+            "Divino de São Lourenço",
+            "Domingos Martins",
+            "Dores do Rio Preto",
+            "Ecoporanga",
+            "Fundão",
+            "Governador Lindenberg",
+            "Guaçuí",
+            "Guarapari",
+            "Ibatiba",
+            "Ibiraçu",
+            "Ibitirama",
+            "Iconha",
+            "Irupi",
+            "Itaguaçu",
+            "Itapemirim",
+            "Itarana",
+            "Iúna",
+            "Jaguaré",
+            "Jerônimo Monteiro",
+            "João Neiva",
+            "Laranja da Terra",
+            "Linhares",
+            "Mantenópolis",
+            "Marataízes",
+            "Marechal Floriano",
+            "Marilândia",
+            "Mimoso do Sul",
+            "Montanha",
+            "Mucurici",
+            "Muniz Freire",
+            "Muqui",
+            "Nova Venécia",
+            "Pancas",
+            "Pedro Canário",
+            "Pinheiros",
+            "Piúma",
+            "Ponto Belo",
+            "Presidente Kennedy",
+            "Rio Bananal",
+            "Rio Novo do Sul",
+            "Santa Leopoldina",
+            "Santa Maria de Jetibá",
+            "Santa Teresa",
+            "São Domingos do Norte",
+            "São Gabriel da Palha",
+            "São José do Calçado",
+            "São Mateus",
+            "São Roque do Canaã",
+            "Serra",
+            "Sooretama",
+            "Vargem Alta",
+            "Venda Nova do Imigrante",
+            "Viana",
+            "Vila Pavão",
+            "Vila Valério",
+            "Vila Velha",
+            "Vitória"
+        ];
+        $("#city").autocomplete({
+            source: cidadesES
+        });
+    });
+    </script>
+    <!-- Permissões VUE -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Agenda ES</h1>
+    <form id="weather-form">
+        <label for="city">Digite o nome da sua cidade:</label>
+        <input type="text" name="city" id="city" placeholder="Ex: Vila Velha" required>
+        <button type="submit">Obter Previsão do Tempo</button>
+    </form>
+    
+    <div id="app" style="display: none;">
+        <div v-if="error" style="color: red;">{{ error }}</div>
+        <div v-else>
+            <h2>Previsão do Tempo para {{ weather.cidade }}</h2>
+            <p>Temperatura: {{ temperature }}°C</p>
+            <p>Sensação Térmica: {{ feelsLike }}°C</p>
+            <p>Umidade: {{ weather.umidade }}%</p>
+            <p>Descrição: {{ weather.descricao }}</p>
+            <!-- <p>Velocidade do Vento: {{ weather.ventoVelocidade }} m/s</p> -->
+            <p>Pressão: {{ weather.pressao }} hPa</p>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
