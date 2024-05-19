@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'DM Sans' ;
+    background: rgb(236, 236, 236);
+}
+
+header {
+    background: rgb(2, 151, 2);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    color: white;
+    font-size: 28px;
+}
+
+h2 {
+    color: rgba(0, 0, 0, 0.795);
+}
+
+.text_city {
+    font-size: 14.5px;
+    color: white;
+    margin-left: 11px;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 600px;
+}
+
+.text_city::placeholder {
+    color: rgba(255, 255, 255, 0.726);
+}
+
+.material-symbols-outlined {
+    color: rgba(255, 255, 255, 0.726);
+    transform: rotate(90deg);
+    margin-right: 4px;
+}
+
+.send_city {
+    border: none;
+    background: white;
+    color: rgba(0, 0, 0, 0.747);
+    border-radius: 25px;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+
+main {
+    background: white;
+    max-width: 1050px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5px;
+}

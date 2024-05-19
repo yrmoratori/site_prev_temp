@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda ES</title>
-    <!-- Códigos do autocomplete -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
     <script>
@@ -95,31 +95,60 @@
         });
     });
     </script>
-    <!-- Permissões VUE -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <h1>Agenda ES</h1>
-    <form id="weather-form">
-        <label for="city">Digite o nome da sua cidade:</label>
-        <input type="text" name="city" id="city" placeholder="Ex: Vila Velha" required>
-        <button type="submit">Obter Previsão do Tempo</button>
-    </form>
-    
-    <div id="app" style="display: none;">
-        <div v-if="error" style="color: red;">{{ error }}</div>
-        <div v-else>
-            <h2>Previsão do Tempo para {{ weather.cidade }}</h2>
-            <p>Temperatura: {{ temperature }}°C</p>
-            <p>Sensação Térmica: {{ feelsLike }}°C</p>
-            <p>Umidade: {{ weather.umidade }}%</p>
-            <p>Descrição: {{ weather.descricao }}</p>
-            <!-- <p>Velocidade do Vento: {{ weather.ventoVelocidade }} m/s</p> -->
-            <p>Pressão: {{ weather.pressao }} hPa</p>
+    <header>
+        <div style="width: 1100px; display: flex; align-items: center; justify-content: center; gap: 50px;">
+            <div style="display: flex; gap: 7px;">
+                <svg version="1.1" id="_x32_" width="35px" height="35px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 512 512"  xml:space="preserve">
+                <g>
+                    <rect x="119.256" y="222.607" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="341.863" y="222.607" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="267.662" y="222.607" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="119.256" y="302.11" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="267.662" y="302.11" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="193.46" y="302.11" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="341.863" y="381.612" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="267.662" y="381.612" fill="#ffffff" width="50.881" height="50.885"/>
+                    <rect x="193.46" y="381.612" fill="#ffffff" width="50.881" height="50.885"/>
+                    <path fill="#ffffff" d="M439.277,55.046h-41.376v39.67c0,14.802-12.195,26.84-27.183,26.84h-54.025
+                        c-14.988,0-27.182-12.038-27.182-26.84v-39.67h-67.094v39.297c0,15.008-12.329,27.213-27.484,27.213h-53.424
+                        c-15.155,0-27.484-12.205-27.484-27.213V55.046H72.649c-26.906,0-48.796,21.692-48.796,48.354v360.246
+                        c0,26.661,21.89,48.354,48.796,48.354h366.628c26.947,0,48.87-21.692,48.87-48.354V103.4
+                        C488.147,76.739,466.224,55.046,439.277,55.046z M453.167,462.707c0,8.56-5.751,14.309-14.311,14.309H73.144
+                        c-8.56,0-14.311-5.749-14.311-14.309V178.089h394.334V462.707z"/>
+                    <path fill="#ffffff" d="M141.525,102.507h53.392c4.521,0,8.199-3.653,8.199-8.144v-73.87c0-11.3-9.27-20.493-20.666-20.493h-28.459
+                        c-11.395,0-20.668,9.192-20.668,20.493v73.87C133.324,98.854,137.002,102.507,141.525,102.507z"/>
+                    <path fill="#ffffff" d="M316.693,102.507h54.025c4.348,0,7.884-3.513,7.884-7.826V20.178C378.602,9.053,369.474,0,358.251,0H329.16
+                        c-11.221,0-20.349,9.053-20.349,20.178v74.503C308.81,98.994,312.347,102.507,316.693,102.507z"/>
+                </g>
+                </svg>
+                <h1>
+                    Agenda ES</h1>
+            </div>
+            <div class="input weather-form" style="display: flex; gap: 20px;">
+                <input type="text" id="city" class="city text_city" placeholder="Busque por uma cidade...">
+                <button class="send_city"><i class="fas fa-search"></i></button>
+            </div>
         </div>
+    </header>
+    <main style="text-align: center;">
+        <div id="displayCurrentWeather">
+            <img class="weather-icon" src="">
+            <h2 class="name"></h2>
+            <h2 class="desc"></h2>
+            <h2 class="temp"></h2>
+            <h2 class="sensTermica"></h2>
+            <h2 class="umidade"></h2>
+            <h2 class="pressao"></h2>
+            <h2 class="vento"></h2>
+        </div>
+        <div><img width="140px" src="https://www.nossocafeyara.com.br/wp-content/uploads/2022/03/Ilustra_Cafe_3D.png" alt=""></div>
+    </main>
+    <div class="displayForecastWeather">
+        
     </div>
-    
     <script src="app.js"></script>
 </body>
 </html>
