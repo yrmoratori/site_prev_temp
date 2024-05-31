@@ -1,50 +1,5 @@
 const apiKey = 'bf5acf81f81c091e4cda77114f6c6287';
 
-function getPtBRMain(string_main) {
-    main_text = string_main;
-    let main_br = "";
-
-    switch (main_text) {
-        case "Thunderstorm":
-        case "Squall":
-            main_br = "Tempestade";
-            break;
-        case "Drizzle":
-            main_br = "Chuvisco";
-            break;
-        case "Rain":
-            main_br = "Chovendo";
-            break;
-        case "Snow":
-            main_br = "Nevando";
-            break;
-        case "Clouds":
-            main_br = "Com nuvens";
-            break;
-        case "Clear":
-            main_br = "Sem nuvens";
-            break;
-        case "Tornado":
-            main_br = "Com tornados";
-            break;
-        case "Ash":
-        case "Dust":
-        case "Sand":
-            main_br = "Poeira/Cinzas";
-            break;
-        case "Fog":
-        case "Smoke":
-        case "Mist":
-        case "Haze":
-            main_br = "Neblina/Nublado";
-            break;
-        default:
-            main_br = main_text;
-    }
-
-    return main_br;
-}
-
 function getDayOfWeek(dateString) {
     const date = new Date(dateString);
     const daysOfWeek = ["seg", "ter", "qua", "qui", "sex", "sáb", "dom"];
@@ -59,11 +14,11 @@ function getDataFromForecast(forecastData) {
         let max_temp = -Infinity;
         let min_temp = Infinity;
         let max_pop = -Infinity;
-        let min_pop = Infinity;
         let max_vel_vento = -Infinity;
-        let min_vel_vento = Infinity;
-        let max_umidade = -Infinity;
-        let min_umidade = Infinity;
+        let ww_s = Infinity;
+        let total_umidade = 0;
+        let count_umidade = 0;
+        let total_mm_chuva = 0;
 
         forecastData[date].forEach(forecast => {
             const temp_max = forecast.main.temp_max;
@@ -71,6 +26,7 @@ function getDataFromForecast(forecastData) {
             const umidade = forecast.main.humidity;
             const pop = forecast.pop;
             const vel_vento = forecast.wind.speed;
+            const ww = forecast.weather[0].description;
 
             if (temp_max > max_temp) {
                 max_temp = temp_max;
@@ -81,38 +37,34 @@ function getDataFromForecast(forecastData) {
             if (pop > max_pop) {
                 max_pop = pop;
             }
-            if (pop < min_pop) {
-                min_pop = pop;
-            }
             if (vel_vento > max_vel_vento) {
                 max_vel_vento = vel_vento;
             }
-            if (vel_vento < min_vel_vento) {
-                min_vel_vento = vel_vento;
+            if (forecast.rain) {
+                total_mm_chuva += forecast.rain['3h'];
             }
-            if (umidade > max_umidade) {
-                max_umidade = umidade;
-            }
-            if (umidade < min_umidade) {
-                min_umidade = umidade;
-            }
+            
+            total_umidade += umidade;
+            count_umidade += 1;
+
+            ww_s = ww;
         });
+
+        const media_umidade = total_umidade / count_umidade;
 
         dados_forecast[date] = {
             max_temp: Math.round(max_temp),
             min_temp: Math.round(min_temp),
             max_pop: Math.round(max_pop * 100),
-            min_pop: Math.round(min_pop * 100),
             max_vel_vento: Math.round(max_vel_vento * 3.6),
-            min_vel_vento: Math.round(min_vel_vento * 3.6),
-            max_umidade: max_umidade,
-            min_umidade: min_umidade
+            media_umidade: Math.round(media_umidade),
+            ww_s: ww_s,
+            max_chuva_mm: Math.round(total_mm_chuva)
         };
     }
 
     return dados_forecast;
 }
-
 
 // dados da previsao do tempo atual
 let send_city = document.querySelector('.send_city');
@@ -125,40 +77,41 @@ let image = document.querySelector('.weather-icon');
 let umidade = document.querySelector('.umidade');
 let pressao = document.querySelector('.pressao');
 let vento = document.querySelector('.vento');
+let tempMax = document.querySelector('.tempMax');
+let tempMin = document.querySelector('.tempMin')
 
 // display previsao do tempo atual
 const displayCurrentWeather = (weather) => {
-    const today = new Date();
-    const options = { day: '2-digit', month: '2-digit' };
-    const data_atual = today.toLocaleDateString('pt-BR', options);
-
     const descricao_atual = weather.weather[0].description;
-    const main = getPtBRMain(weather.weather[0].main);
-    const weather_icon = weather.weather[0].icon;
     const vel_vento = weather.wind.speed * 3.6;
 
-    const icon_map = `<i class="fa-solid fa-location-dot"></i>`;
-    const tempIcon = '<i class="fas fa-temperature-high"></i>';
-    const sensTermIcon = '<i class="fas fa-thermometer-three-quarters"></i>';
     const umidadeIcon = '<i class="fas fa-tint"></i>';
     const pressaoIcon = '<i class="fas fa-tachometer-alt"></i>';
     const ventoIcon = '<i class="fas fa-wind"></i>';
 
-    image.src = `https://openweathermap.org/img/wn/${weather_icon}@2x.png`;
-    nameVal.innerHTML = `Previsão para Hoje ${data_atual} ${weather.name} - ES ${icon_map}`;
-    desc.innerHTML = `${descricao_atual}, ${main}.`;
-    temp.innerHTML = `${tempIcon} Temperatura: ${Math.round(weather.main.temp)}°C`;
-    sensTerm.innerHTML = `${sensTermIcon} Sensação: ${Math.round(weather.main.feels_like)}°C`;
-    umidade.innerHTML = `${umidadeIcon} Umidade: ${weather.main.humidity}%`;
-    pressao.innerHTML = `${pressaoIcon} Pressão: ${weather.main.pressure}hPa`;
-    vento.innerHTML = `${ventoIcon} Vento: 0-${Math.round(vel_vento)}km/h`;
+    image.src = `https://samuelljg.github.io/AgendaES/${descricao_atual}.svg`;
+    nameVal.innerHTML = `Tempo Hoje em ${weather.name}, ES `;
+    desc.innerHTML = `${descricao_atual}.`;
+    temp.innerHTML = `${Math.round(weather.main.temp)}°`;
+    sensTerm.innerHTML = `<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+    <svg fill="red" opacity='0.7' width="20px" height="20px" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg">
+      <path d="M33.74609,76.96289a7.98611,7.98611,0,0,1,1.25635-11.21A81.79682,81.79682,0,0,1,64.05957,52.23926c16.16406-4.042,41.14941-5.04785,68.37793,13.10449,42.333,28.22363,77.12891,1.53906,78.58887.38965a8.00032,8.00032,0,0,1,9.97119,12.51367,81.79682,81.79682,0,0,1-29.05713,13.51367,81.324,81.324,0,0,1-19.71484,2.4375c-14.04053,0-30.87207-3.68164-48.66309-15.542-42.333-28.22266-77.12891-1.53906-78.58887-.38965A8.01729,8.01729,0,0,1,33.74609,76.96289ZM211.02637,121.7334c-1.46,1.14941-36.25586,27.833-78.58887-.38965-27.22852-18.15137-52.21387-17.14844-68.37793-13.10449a81.79682,81.79682,0,0,0-29.05713,13.51367,8.00032,8.00032,0,0,0,9.97119,12.51367c1.46-1.14941,36.25586-27.834,78.58887.38965,17.791,11.86035,34.62256,15.542,48.66309,15.542a83.50512,83.50512,0,0,0,48.772-15.95117,8.00032,8.00032,0,0,0-9.97119-12.51367Zm0,56c-1.46,1.15039-36.25586,27.832-78.58887-.38965-27.22852-18.15332-52.21387-17.14746-68.37793-13.10449a81.79682,81.79682,0,0,0-29.05713,13.51367,8.00032,8.00032,0,0,0,9.97119,12.51367c1.46-1.15039,36.25586-27.835,78.58887.38965,17.791,11.86035,34.62256,15.542,48.66309,15.542a83.50512,83.50512,0,0,0,48.772-15.95117,8.00032,8.00032,0,0,0-9.97119-12.51367Z"/>
+    </svg> Sensação ${Math.round(weather.main.feels_like)}°`;
+    umidade.innerHTML = `${umidadeIcon} Umidade ${weather.main.humidity}%`;
+    pressao.innerHTML = `${pressaoIcon} Pressão ${weather.main.pressure}hPa`;
+    vento.innerHTML = `${ventoIcon} Vento ${Math.round(vel_vento)}km/h`;
+    tempMax.innerHTML = ` ${Math.round(weather.main.temp_max)}°`;
+    tempMin.innerHTML = ` ${Math.round(weather.main.temp_min)}°`;
 }
 
 // display previsao forecast 5/3
 const displayForecast = (forecastData) => {
-    const newDiv = document.createElement('div');
-    newDiv.classList.add("displayForecastWeather");
-    document.body.appendChild(newDiv);
+    const newDiv = document.querySelector(".displayForecastWeather");
+
+    if (document.querySelector(".forecastItem")) {
+        const forecastItems = document.querySelectorAll('.forecastItem');
+        forecastItems.forEach(item => item.remove());
+    }
 
     const groupedByDate = {};
     const today = new Date().toISOString().slice(0, 10);
@@ -183,36 +136,85 @@ const displayForecast = (forecastData) => {
     for (const date in forecastDate) {
         const max_icon = '<img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-arrow-max.svg">';
         const min_icon = '<img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-arrow-min.svg">';
-        const min_humidity_icon = '<img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-humidity-min.svg">';
-        const max_humidity_icon = '<img src="https://www.climatempo.com.br/dist/images/v2/svg/ic-humidity-max.svg">';
-        const rain_icon = '<i class="fa-solid fa-cloud-rain"></i>';
-
-        const dateHeader = document.createElement('h2');
-        dateHeader.innerHTML = `<i class="fa-solid fa-calendar-day"></i> ${date.slice(8)} ${getDayOfWeek(date)}`;
-        newDiv.appendChild(dateHeader);
 
         const forecastDiv = document.createElement('div');
         forecastDiv.classList.add("forecastItem");
 
-        const tempElem = document.createElement('p');
-        tempElem.innerHTML = `Temperatura: ${min_icon} ${forecastDate[date].min_temp}°C ${max_icon} ${forecastDate[date].max_temp}°C `;
-        forecastDiv.appendChild(tempElem);
+        const cc = document.createElement('div');
+        cc.classList.add("cc");
+        forecastDiv.appendChild(cc);
 
-        const popElem = document.createElement('p');
-       popElem.innerHTML = `Chance de Chuva: ${rain_icon} ${forecastDate[date].max_pop}%`;
-        forecastDiv.appendChild(popElem);
+        const cc2 = document.createElement('div');
+        cc2.classList.add("cc2");
+        forecastDiv.appendChild(cc2);
+
+        const dateHeader = document.createElement('h2');
+        dateHeader.innerHTML = ` ${date.slice(8)}`;
+        cc.appendChild(dateHeader);
+
+        const dateHeader2 = document.createElement('div');
+        dateHeader2.innerHTML = ` ${getDayOfWeek(date)}`;
+        dateHeader.appendChild(dateHeader2);
+
+        const popElem2 = document.createElement('p');
+        popElem2.innerHTML = `<img class="weather-image" src="https://samuelljg.github.io/AgendaES/${forecastDate[date].ww_s}.svg">`;
+        cc.appendChild(popElem2);
+
+        const tempElem = document.createElement('p');
+        tempElem.innerHTML = ` ${max_icon} ${forecastDate[date].max_temp}° <br>  ${min_icon} ${forecastDate[date].min_temp}°`;
+        cc.appendChild(tempElem);
+
+        const rainDiv = document.createElement('p');
+        rainDiv.classList.add('rainDiv');
+        cc2.appendChild(rainDiv);
+
+        const rainBar2 = document.createElement('p');
+        rainBar2.classList.add('rainBar2');
+        rainDiv.appendChild(rainBar2);
+
+        const rainBar = document.createElement('p');
+        rainBar.classList.add('rainBar');
+        rainBar2.appendChild(rainBar);
+
+        const rainIcon = document.createElement('div');
+        rainIcon.innerHTML = ` <img width='35px' style='margin-bottom:-10px;' src='https://samuelljg.github.io/AgendaES/rain-svgrepo-com (3).svg'> ${forecastDate[date].max_pop}% - ${forecastDate[date].max_chuva_mm}mm`;
+        rainIcon.classList.add('rainIcon');
+        rainDiv.appendChild(rainIcon);
+
+        rainBar.style.height = `${forecastDate[date].max_pop}%`;
 
         const windElem = document.createElement('p');
-        windElem.innerHTML = `Velocidade do Vento: ${min_icon} ${forecastDate[date].min_vel_vento} km/h ${max_icon} ${forecastDate[date].max_vel_vento} km/h`;
-        forecastDiv.appendChild(windElem);
+        windElem.innerHTML = `<i class="fas fa-wind"></i> ${forecastDate[date].max_vel_vento} km/h`;
+        cc2.appendChild(windElem);
 
         const humidityElem = document.createElement('p');
-        humidityElem.innerHTML = `Umidade: ${max_humidity_icon} ${forecastDate[date].max_umidade}% ${min_humidity_icon} ${forecastDate[date].min_umidade}%`;
-        forecastDiv.appendChild(humidityElem);
+        humidityElem.innerHTML = `<i class="fas fa-tint"></i> ${forecastDate[date].media_umidade}%`;
+        cc2.appendChild(humidityElem);
+
+        /*
+        console.log(groupedByDate[date][0]);
+
+        const imageMadrugada = document.createElement('p');
+        imageMadrugada.innerHTML = `<img width='35px' style='margin-bottom:-10px;' src='https://openweathermap.org/img/wn/${groupedByDate[date][0].weather[0].icon}@2x.png'> Madrugada`;
+        imageMadrugada.classList.add('imageMadrugada');
+        cc2.appendChild(imageMadrugada);
+        */
 
         newDiv.appendChild(forecastDiv);
     }
 }
+
+const url = `https://api.openweathermap.org/data/2.5/weather?q=Vitória&appid=bf5acf81f81c091e4cda77114f6c6287&lang=pt_br&units=metric`;
+
+fetch(url)
+    .then(response => response.json())
+    .then(displayCurrentWeather)
+
+const url_forecast = `https://api.openweathermap.org/data/2.5/forecast?q=Vitória&appid=bf5acf81f81c091e4cda77114f6c6287&lang=pt_br&units=metric`;
+
+fetch(url_forecast)
+    .then(response => response.json())
+    .then(displayForecast)
 
 send_city.addEventListener('click', async function () {
     const cidade = city.value;

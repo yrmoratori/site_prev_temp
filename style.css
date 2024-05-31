@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
     margin: 0;
@@ -11,7 +13,7 @@ body {
 }
 
 header {
-    background: rgb(2, 151, 2);
+    background: rgb(58, 152, 46);
     padding: 15px 20px;
     display: flex;
     justify-content: center;
@@ -26,18 +28,56 @@ h2 {
     color: rgba(0, 0, 0, 0.795);
 }
 
-.text_city {
-    font-size: 14.5px;
-    color: white;
-    margin-left: 11px;
-    outline: none;
-    border: none;
-    background: transparent;
-    width: 600px;
+.input-box {
+    position: relative;
+    height: 46px;
+    max-width:640px;
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-.text_city::placeholder {
-    color: rgba(255, 255, 255, 0.726);
+.input-box i, .input-box button {
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+}
+
+.input-box i {
+    left: 15px;
+    font-size: 20px;
+    color: #707070;
+}
+
+.input-box button {
+    right: 15px;
+    font-size: 14px;
+    background-color: rgb(58, 152, 46);
+    font-weight: 400;
+    color: #fff;
+    border: none;
+    padding: 6px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.input-box button:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+
+.input-box input {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    border: none;
+    outline: none;
+    padding-left: 45px;
+    padding-right: -45px;
 }
 
 .material-symbols-outlined {
@@ -46,19 +86,103 @@ h2 {
     margin-right: 4px;
 }
 
-.send_city {
-    border: none;
-    background: white;
-    color: rgba(0, 0, 0, 0.747);
-    border-radius: 25px;
-    padding: 0px 10px;
-    cursor: pointer;
-}
 
 main {
-    background: white;
     max-width: 1050px;
     margin: auto;
-    padding: 20px;
     border-radius: 5px;
+}
+
+.displayForecastWeather {
+    max-width: 950px;
+    padding: 50px;
+    border-radius: 5px;
+    margin: auto;
+    background-color: white;
+
+}
+
+.forecastItem h2 {
+    display: inline-grid;
+    border-radius: 50%;
+    align-items: center;
+    line-height: .9;
+    text-align: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px;
+    letter-spacing: 1px;
+    height: 40px;
+    width: 40px;
+    background-color: #ececec;
+    color: #707070;
+    margin-left: -50px;
+    flex-wrap: wrap;
+}
+
+.forecastItem h2 div {
+    font-size: 13px;
+    margin-top: -10px;
+}
+
+.cc2 {
+    position: relative;
+}
+
+.cc2 p:first-of-type {
+    display: flex;
+    align-items: center;
+}
+
+.cc2 .rainBar2 {
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    width: 7px;
+    background-color: rgba(110, 110, 110, 0);
+    border-radius: 100px;
+    border: .5px solid rgba(0, 0, 0, 0.6);
+    left: -5px;
+    overflow: hidden;
+}
+
+.cc2 .rainBar {
+    max-height: 20px;
+    bottom: 0;
+    align-self: end;
+    width: 7px;
+    background-color: rgb(0, 255, 200);
+    border-top: .5px solid rgba(0, 0, 0, 0.6);
+    border-radius: 100px;
+}
+
+.rainIcon {
+    display: flex;
+    align-items: center;
+}
+
+.weather-image {
+    width: 50px;
+    margin-bottom: -10px;
+}
+
+.forecastItem {
+    position: relative;
+}
+
+.cc {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.forecastItem {
+    border-bottom: .5px solid #ececec;
+    border-left: .5px solid #ececec;
+    border-right: .5px solid #ececec;
+    color: rgb(112, 112, 112);
+    padding: 20px;
+    display: flex;
+    gap: 50px;
 }
