@@ -7,6 +7,35 @@ function getDayOfWeek(dateString) {
     return daysOfWeek[dayOfWeek];
 }
 
+function getDescriptionForecast(dados_forecast) {
+    let descricao_total = "";
+    
+    const descricao_madru = dados_forecast[0]?.weather[0]?.description || "indefinida";
+    const descricao_manha = dados_forecast[2]?.weather[0]?.description || "indefinida";
+    const descricao_tarde = dados_forecast[4]?.weather[0]?.description || "indefinida";
+    const descricao_noite = dados_forecast[6]?.weather[0]?.description || "indefinida";
+
+    if (descricao_madru === descricao_manha) {
+        descricao_total += `A madrugada e a manhã serão de ${descricao_madru}. `;
+    } else {
+        descricao_total += `A madrugada será de ${descricao_madru}, enquanto a manhã terá ${descricao_manha}. `;
+    }
+
+    if (descricao_manha === descricao_tarde) {
+        descricao_total += `A manhã e a tarde serão de ${descricao_manha}. `;
+    } else {
+        descricao_total += `A manhã terá ${descricao_manha}, seguida de uma tarde de ${descricao_tarde}. `;
+    }
+
+    if (descricao_tarde === descricao_noite) {
+        descricao_total += `A tarde e a noite serão de ${descricao_tarde}.`;
+    } else {
+        descricao_total += `A tarde terá ${descricao_tarde}, e a noite será de ${descricao_noite}.`;
+    }
+
+    return descricao_total;
+}
+
 function getDataFromForecast(forecastData) {
     const dados_forecast = {};
 
@@ -66,6 +95,54 @@ function getDataFromForecast(forecastData) {
     return dados_forecast;
 }
 
+// dados do café
+let display_media_temp_cafe = document.querySelector('.display_media_temp_cafe');
+let display_media_umid_cafe = document.querySelector('.display_media_umid_cafe');
+let display_media_pop_cafe = document.querySelector('.display_media_pop_cafe');
+
+// função para obter dados necessários para dica do café
+function getDadosFromForecastToCoffee(all_forecast_data) {
+    let totalTemperatures = 0;
+    let UmidadeTotal = 0;
+    let popTotal = 0;
+
+    for (let i = 0; i < all_forecast_data.length; i++) {
+        const forecast = all_forecast_data[i];
+        const temp = forecast.main.temp;
+        const umid = forecast.main.humidity;
+        const pop = forecast.pop;
+        // console.log(forecast);
+
+        if (temp !== undefined && temp !== null) {
+            totalTemperatures += temp;
+        }
+        if (umid !== undefined && umid !== null) {
+            UmidadeTotal += umid;
+        }
+        if (pop !== undefined && pop !== null) {
+            popTotal += pop;
+        }
+    }
+
+    const forecast_media_temp_cafe = Math.round(totalTemperatures / all_forecast_data.length);
+    const forecast_media_umid_cafe = Math.round(UmidadeTotal / all_forecast_data.length);
+    const forecast_media_pop_cafe = (popTotal / all_forecast_data.length) * 100;
+
+    const dados_for_coffee = {
+        media_temp: forecast_media_temp_cafe,
+        media_umid: forecast_media_umid_cafe,
+        media_pop: forecast_media_pop_cafe,
+    };
+
+    console.log(dados_for_coffee);
+
+    display_media_temp_cafe.innerHTML = `Média de temperatura para os próximos 5 dias: ${forecast_media_temp_cafe}°`;
+    display_media_umid_cafe.innerHTML = `Média de umidade para os próximos 5 dias: ${forecast_media_umid_cafe}%`;
+    display_media_pop_cafe.innerHTML = `Média de chuva para os próximos 5 dias: ${forecast_media_pop_cafe}mm`;
+
+    return dados_for_coffee;
+}
+
 // dados da previsao do tempo atual
 let send_city = document.querySelector('.send_city');
 let city = document.querySelector('.city');
@@ -89,7 +166,7 @@ const displayCurrentWeather = (weather) => {
     const pressaoIcon = '<i class="fas fa-tachometer-alt"></i>';
     const ventoIcon = '<i class="fas fa-wind"></i>';
 
-    image.src = `https://samuelljg.github.io/AgendaES/${descricao_atual}.svg`;
+    image.src = `https://samuelljg.github.io/AgendaES/${descricao_atual}.svg`; // top
     nameVal.innerHTML = `Tempo Hoje em ${weather.name}, ES `;
     desc.innerHTML = `${descricao_atual}.`;
     temp.innerHTML = `${Math.round(weather.main.temp)}°`;
@@ -131,6 +208,7 @@ const displayForecast = (forecastData) => {
         groupedByDate[date].push(forecast);
     }
 
+    getDadosFromForecastToCoffee(forecastData.list);
     const forecastDate = getDataFromForecast(groupedByDate);
 
     for (const date in forecastDate) {
@@ -191,14 +269,38 @@ const displayForecast = (forecastData) => {
         humidityElem.innerHTML = `<i class="fas fa-tint"></i> ${forecastDate[date].media_umidade}%`;
         cc2.appendChild(humidityElem);
 
-        /*
-        console.log(groupedByDate[date][0]);
+        if (groupedByDate[date][0]) {
+            const imageMadrugada = document.createElement('p');
+            imageMadrugada.innerHTML = `<img src='https://openweathermap.org/img/wn/${groupedByDate[date][0].weather[0].icon}@2x.png'> Madrugada`; // no src mudar para o icone correspondente - lua
+            imageMadrugada.classList.add('imageMadrugada');
+            cc2.appendChild(imageMadrugada);
+        }
 
-        const imageMadrugada = document.createElement('p');
-        imageMadrugada.innerHTML = `<img width='35px' style='margin-bottom:-10px;' src='https://openweathermap.org/img/wn/${groupedByDate[date][0].weather[0].icon}@2x.png'> Madrugada`;
-        imageMadrugada.classList.add('imageMadrugada');
-        cc2.appendChild(imageMadrugada);
-        */
+        if (groupedByDate[date][2]) {
+            const imageManha = document.createElement('p');
+            imageManha.innerHTML = `<img src='https://openweathermap.org/img/wn/${groupedByDate[date][2].weather[0].icon}@2x.png'> Manhã`; // no src mudar para o icone certo correspondente - sol
+            imageManha.classList.add('imageManha');
+            cc2.appendChild(imageManha);
+        }
+
+        if (groupedByDate[date][4]) {
+            const imageTarde = document.createElement('p');
+            imageTarde.innerHTML = `<img src='https://openweathermap.org/img/wn/${groupedByDate[date][4].weather[0].icon}@2x.png'> Tarde`; // no src mudar para o icone certo correspondente - sol
+            imageTarde.classList.add('imageTarde');
+            cc2.appendChild(imageTarde);
+        }
+
+        if (groupedByDate[date][6]) {
+            const imageNoite = document.createElement('p');
+            imageNoite.innerHTML = `<img src='https://openweathermap.org/img/wn/${groupedByDate[date][6].weather[0].icon}@2x.png'> Noite`; // no src mudar para o icone certo correspondente - lua
+            imageNoite.classList.add('imageNoite');
+            cc2.appendChild(imageNoite);
+        }
+
+        const description_weather_day = document.createElement('p');
+        description_weather_day.innerHTML = getDescriptionForecast(groupedByDate[date]); // funcao para montar a descricao de clima do dia
+        description_weather_day.classList.add('description_weather_day');
+        cc2.appendChild(description_weather_day);
 
         newDiv.appendChild(forecastDiv);
     }
