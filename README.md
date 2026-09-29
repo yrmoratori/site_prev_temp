@@ -1,24 +1,34 @@
-# AgroCoffee 2.0
+# ☕ AgroCoffee — Clima e Cafeicultura Capixaba
 
-## Introdução
+## 🌱 Introdução
 
-A cafeicultura é a principal atividade agrícola do Espírito Santo, sendo sensível às condições climáticas. Dessa forma, a previsão do tempo em um elemento crucial para o planejamento e manejo das lavouras. Tendo isso em mente, o projeto AgroCoffee propõe o desenvolvimento de um website que integra a previsão meteorológica com informações específicas sobre o plantio de café, visando auxiliar os agricultores na tomada de decisões.
+A cafeicultura é a principal atividade agrícola do Espírito Santo, responsável por uma parcela significativa da economia e pela geração de empregos no estado. Por ser uma atividade diretamente influenciada pelas condições climáticas, o acompanhamento das condições meteorológicas é importante para auxiliar produtores no planejamento e manejo das lavouras.
 
-A relevância do projeto está na capacidade de fornecer orientações precisas e atualizadas, contribuindo para aumentar a produtividade e a sustentabilidade das plantações, além de fortalecer a resiliência dos agricultores frente às mudanças climáticas. Esta iniciativa se alinha com a busca por práticas agrícolas mais inteligentes e eficientes, fundamentais para a segurança alimentar e o desenvolvimento sustentável.
+Nesse contexto, o **AgroCoffee** foi desenvolvido como uma plataforma que integra informações meteorológicas e conhecimentos sobre a cafeicultura capixaba, buscando fornecer informações úteis para apoiar a tomada de decisões. O projeto apresenta previsões do tempo, recomendações relacionadas às condições climáticas e conteúdos sobre os cafés **Conilon e Arábica** produzidos no Espírito Santo.
 
-## Problema
+---
 
-O problema central abordado neste projeto reside na necessidade de integrar informações meteorológicas precisas com orientações específicas sobre o plantio de café, de forma a auxiliar os agricultores na tomada de decisões estratégicas. A falta de acesso a essas informações de forma integrada e de fácil interpretação dificulta o planejamento das atividades agrícolas e pode impactar negativamente a produtividade e a sustentabilidade das lavouras.
+## 🚨 Problema
 
-O AgroCoffee busca solucionar essa necessidade por meio de um website que combina previsões meteorológicas com recomendações relacionadas à cafeicultura. Dessa forma, o sistema fornece informações sobre o clima e orientações práticas que podem apoiar o planejamento das atividades agrícolas.
+O problema central abordado neste projeto consiste na necessidade de integrar informações meteorológicas precisas com orientações específicas sobre o plantio de café, de forma a auxiliar os agricultores na tomada de decisões estratégicas.
 
-## Objetivo
+A falta de acesso a essas informações de maneira integrada pode dificultar o planejamento das atividades agrícolas e o manejo das lavouras, aumentando os riscos relacionados à produtividade e à sustentabilidade das plantações.
 
-Criar e desenvolver um website que forneça previsões meteorológicas precisas e atualizadas, integradas a dicas e orientações práticas sobre o plantio de café. O website será uma ferramenta de apoio para os agricultores, permitindo que eles planejem suas atividades agrícolas de forma mais eficiente e sustentável, aumentando a produtividade e a qualidade do café produzido.
+O AgroCoffee busca solucionar esse problema ao combinar **previsões meteorológicas, recomendações agrícolas e informações sobre a cafeicultura capixaba** em uma única plataforma.
 
-Além disso, o website buscará sensibilizar os agricultores para a importância da adoção de práticas agrícolas mais sustentáveis e resilientes às mudanças climáticas, contribuindo para a melhoria da gestão ambiental nas propriedades rurais.
+---
 
-## Metodologia (Plano de Ação)
+## 🎯 Objetivo
+
+Criar e desenvolver um website que forneça **previsões meteorológicas precisas e atualizadas**, integradas a dicas e orientações práticas sobre o cultivo de café.
+
+O projeto tem como finalidade oferecer uma ferramenta de apoio para agricultores, permitindo que eles planejem suas atividades agrícolas de forma mais eficiente, reduzindo riscos e aumentando a produtividade e a qualidade do café produzido.
+
+Além disso, o website busca disponibilizar informações sobre a cafeicultura do Espírito Santo, apresentando conteúdos sobre os cafés **Conilon e Arábica**, suas características, regiões produtoras e particularidades relacionadas ao clima.
+
+---
+
+## 🛠️ Metodologia (Plano de Ação)
 
 A metodologia deste projeto será abordada pelo grupo com o desenvolvimento iterativo e incremental, utilizando as seguintes etapas:
 
@@ -28,43 +38,62 @@ A metodologia deste projeto será abordada pelo grupo com o desenvolvimento iter
 - **Testes e validação:** verificação da eficácia do website em fornecer informações úteis e compreensíveis para os agricultores.
 - **Ajustes e melhorias:** incorporação de feedback dos usuários e aprimoramento contínuo do website.
 
-Essas etapas serão realizadas de forma colaborativa, com a participação de agricultores, especialistas em café e desenvolvedores web. A intervenção será realizada no contexto virtual, por meio do website, e abrangerá inicialmente agricultores da região e, com potencial de expansão para outras regiões produtoras de café.
+Essas etapas serão realizadas de forma colaborativa, com a participação de agricultores, especialistas em café e desenvolvedores web. A intervenção será realizada no contexto virtual, por meio do acesso ao website, abrangendo inicialmente a região do Espírito Santo, com potencial de expansão para outras regiões produtoras de café.
 
-## Funcionalidades do projeto
+---
 
-- Consulta da previsão meteorológica por município do Espírito Santo.
-- Exibição das condições climáticas atuais.
-- Previsão meteorológica para os próximos dias.
-- Recomendações agrícolas baseadas nas condições climáticas.
-- Informações sobre a cafeicultura do Espírito Santo.
-- Conteúdos específicos sobre café Conilon e café Arábica.
-- Curiosidades e dados sobre a produção de café capixaba.
-- Interface responsiva para acesso em diferentes dispositivos.
+## 🌐 Acesse o Projeto
 
-## Tecnologias utilizadas
+**Site oficial:**  
+https://yrmoratori.github.io/site_prev_temp/
 
-- HTML5
-- CSS3
-- JavaScript
-- OpenWeather API
-- GitHub Pages
+**Repositório no GitHub:**  
+https://github.com/yrmoratori/site_prev_temp
 
-## Estrutura do projeto
+---
+
+## ✨ Funcionalidades
+
+- 🌦️ Consulta da previsão meteorológica por cidade
+- 📍 Busca de cidades do Espírito Santo
+- 🌡️ Exibição das condições climáticas atuais
+- 📅 Previsão para os próximos dias
+- 💧 Informações de temperatura, umidade, pressão e vento
+- 🌱 Recomendações relacionadas às condições climáticas
+- ☕ Conteúdos sobre o café Conilon capixaba
+- ☕ Conteúdos sobre o café Arábica capixaba
+- 💡 Curiosidades sobre a cafeicultura do Espírito Santo
+- 📊 Informações e indicadores da produção cafeeira capixaba
+- 📱 Interface responsiva para diferentes dispositivos
+
+---
+
+## 💻 Tecnologias Utilizadas
+
+- **HTML5** — estrutura das páginas
+- **CSS3** — estilização e responsividade
+- **JavaScript** — lógica e interação da aplicação
+- **OpenWeather API** — dados meteorológicos
+- **GitHub Pages** — hospedagem do projeto
+- **Google Fonts** — tipografia da interface
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```text
-agrocoffee_v2/
+AgroCoffee/
+│
 ├── index.html
 ├── app.js
 ├── style.css
+│
 ├── cafe-conilon-capixaba.html
 ├── cafe-arabica-capixaba.html
+│
+├── favicon.ico
+│
+├── images/
+│   └── imagens utilizadas no projeto
+│
 └── README.md
-```
-
-## Fontes de conteúdo
-
-As informações relacionadas à cafeicultura capixaba utilizadas no projeto foram baseadas principalmente em materiais do Instituto Capixaba de Pesquisa, Assistência Técnica e Extensão Rural (Incaper), incluindo conteúdos sobre cafeicultura, café Conilon e sustentabilidade da cafeicultura de Arábica em regiões de montanha.
-
-## Observação sobre a API
-
-A chave da OpenWeather continua no JavaScript porque o projeto é um site estático. Recomenda-se restringir a chave ao domínio do GitHub Pages e configurar limites de uso. Para um projeto em produção, o ideal é mover a chamada da API para um backend/proxy, evitando a exposição direta da chave no código-fonte.
